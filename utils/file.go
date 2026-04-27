@@ -22,8 +22,11 @@ func SanitizeFilename(name string) string {
 }
 
 // PromptOverwrite checks if file exists and asks user for overwrite permission
-func PromptOverwrite(filepath string) (bool, error) {
+func PromptOverwrite(filepath string, force bool) (bool, error) {
 	if _, err := os.Stat(filepath); err == nil {
+		if force {
+			return true, nil
+		}
 		fmt.Printf("File '%s' already exists. Overwrite? (y/N): ", filepath)
 		reader := bufio.NewReader(os.Stdin)
 		input, err := reader.ReadString('\n')

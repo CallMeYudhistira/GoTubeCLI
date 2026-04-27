@@ -12,6 +12,7 @@ import (
 var (
 	cfg     config.Config
 	outputFlag string
+	forceFlag  bool
 )
 
 var rootCmd = &cobra.Command{
@@ -48,4 +49,5 @@ func Execute() {
 
 func init() {
 	rootCmd.PersistentFlags().StringVarP(&outputFlag, "output", "o", "", "output directory (default is current directory or config)")
+	rootCmd.PersistentFlags().BoolVarP(&forceFlag, "force", "f", false, "force overwrite existing files")
 }

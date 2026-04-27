@@ -37,7 +37,7 @@ func (s *Service) PrintVideoInfo(video *yt.Video, quality string) {
 }
 
 // DownloadVideo handles downloading video and audio and merging them if necessary
-func (s *Service) DownloadVideo(url, outputDir, quality string) error {
+func (s *Service) DownloadVideo(url, outputDir, quality string, force bool) error {
 	video, err := s.GetVideo(url)
 	if err != nil {
 		return fmt.Errorf("failed to fetch video metadata: %w", err)
@@ -46,7 +46,7 @@ func (s *Service) DownloadVideo(url, outputDir, quality string) error {
 	sanitizedTitle := utils.SanitizeFilename(video.Title)
 	finalOutputPath := filepath.Join(outputDir, sanitizedTitle+".mp4")
 
-	if exists, err := utils.PromptOverwrite(finalOutputPath); err != nil {
+	if exists, err := utils.PromptOverwrite(finalOutputPath, force); err != nil {
 		return err
 	} else if !exists {
 		fmt.Println("Download cancelled.")
@@ -113,7 +113,7 @@ func (s *Service) DownloadVideo(url, outputDir, quality string) error {
 }
 
 // DownloadAudio handles downloading the best audio and converting it to MP3
-func (s *Service) DownloadAudio(url, outputDir string) error {
+func (s *Service) DownloadAudio(url, outputDir string, force bool) error {
 	video, err := s.GetVideo(url)
 	if err != nil {
 		return fmt.Errorf("failed to fetch video metadata: %w", err)
@@ -122,7 +122,7 @@ func (s *Service) DownloadAudio(url, outputDir string) error {
 	sanitizedTitle := utils.SanitizeFilename(video.Title)
 	finalOutputPath := filepath.Join(outputDir, sanitizedTitle+".mp3")
 
-	if exists, err := utils.PromptOverwrite(finalOutputPath); err != nil {
+	if exists, err := utils.PromptOverwrite(finalOutputPath, force); err != nil {
 		return err
 	} else if !exists {
 		fmt.Println("Download cancelled.")
@@ -169,7 +169,9 @@ func (s *Service) downloadStream(video *yt.Video, format *yt.Format, outputPath,
 	// Use io.MultiWriter to write to both the file and the progress bar
 	writer := io.MultiWriter(file, bar)
 
-	_, err = io.Copy(writer, stream)
+	// Use io.CopyBuffer with a 1MB buffer to significantly improve download speed
+	buf := make([]byte, 1024*1024)
+	_, err = io.CopyBuffer(writer, stream, buf)
 	if err != nil {
 		return fmt.Errorf("failed to download stream: %w", err)
 	}

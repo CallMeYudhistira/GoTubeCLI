@@ -16,7 +16,7 @@ GoTube is a fast, production-ready command-line application written in Go that a
 
 - **Go 1.25+** (if compiling from source)
 - **FFmpeg**: Required for merging video/audio streams and converting audio to MP3.
-  - Windows: `winget install ffmpeg` or download from [gyan.dev](https://www.gyan.dev/ffmpeg/builds/)
+  - Windows: `winget install ffmpeg` or download directly: [FFmpeg build](https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-2026-04-26-git-4867d251ad-full_build.7z)
   - macOS: `brew install ffmpeg`
   - Linux: `sudo apt install ffmpeg`
 

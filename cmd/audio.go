@@ -18,7 +18,7 @@ var audioCmd = &cobra.Command{
 		svc := youtube.NewService()
 		fmt.Println("Fetching video information...")
 		
-		err := svc.DownloadAudio(url, cfg.OutputDir)
+		err := svc.DownloadAudio(url, cfg.OutputDir, forceFlag)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 			os.Exit(1)
