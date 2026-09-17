@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoTube - Fast YouTube Downloader</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GoTube</h1>
+            <p>Fast, lightweight, and modern YouTube downloader</p>
+        </header>
+
+        <div class="card">
+            <form id="downloadForm">
+                <div class="input-group">
+                    <input type="url" id="urlInput" placeholder="Paste YouTube URL here..." required>
+                </div>
+                <div class="action-row">
+                    <select id="typeSelect">
+                        <option value="video">Video (MP4)</option>
+                        <option value="audio">Audio (MP3)</option>
+                    </select>
+                    <button type="submit" id="downloadBtn">Download</button>
+                </div>
+            </form>
+
+            <div id="videoInfo" class="hidden">
+                <img id="videoThumb" src="" alt="Thumbnail">
+                <div class="info-text">
+                    <h3 id="videoTitle"></h3>
+                    <p id="videoDuration"></p>
+                </div>
+            </div>
+
+            <div id="progressContainer" class="hidden">
+                <div class="status-text">
+                    <span id="statusLabel">Pending...</span>
+                    <span id="progressPercentage">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="progressBar" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <div id="errorBox" class="hidden error"></div>
+            
+            <div id="completedBox" class="hidden success">
+                <p>Download Completed!</p>
+                <a id="downloadLink" href="#" class="btn-secondary" download>Save File</a>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

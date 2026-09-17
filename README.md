@@ -83,6 +83,22 @@ You can set a default output directory by creating a config file at `~/.gotube/c
 }
 ```
 
+## 🐳 Docker (Home Server)
+
+You can easily run GoTube as a web service on your home server using Docker and Docker Compose. This ensures all dependencies (including FFmpeg) are pre-configured.
+
+```bash
+# Clone the repository
+git clone https://github.com/CallMeYudhistira/GoTube.git
+cd GoTube
+
+# Start the service in the background
+docker-compose up -d
+```
+
+The web interface will be available at `http://<your-server-ip>:8080`.
+All downloaded videos and audio files will be automatically saved directly to the `downloads/` folder inside your project directory.
+
 ## ⚠️ Disclaimer
 
 This tool is provided for **educational purposes only**. Downloading copyrighted material without permission may violate the terms of service of YouTube and your local laws. Use responsibly.

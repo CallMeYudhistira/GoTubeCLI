@@ -1,0 +1,11 @@
+services:
+  gotube:
+    build: .
+    container_name: gotube
+    ports:
+      - "1004:1004"
+    volumes:
+      - ./downloads:/app/downloads
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Jakarta # You can change this to your home server's timezone

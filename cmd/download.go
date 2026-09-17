@@ -20,7 +20,7 @@ var downloadCmd = &cobra.Command{
 		svc := youtube.NewService()
 		fmt.Println("Fetching video information...")
 		
-		err := svc.DownloadVideo(url, cfg.OutputDir, quality, forceFlag)
+		err := svc.DownloadVideo(url, cfg.OutputDir, quality, "", forceFlag, nil)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 			os.Exit(1)
